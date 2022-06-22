@@ -18,7 +18,9 @@ import Item from './components/Item';
 const AppContainer = styled.div`
   font-family: 'IBM Plex Sans', sans-serif;
   display: flex;
+  color: #fff;
   background: linear-gradient(179deg, #176eb5, #d545d7);
+  text-shadow: 1px 0px 2px #8dc4f0;
 
   .sidebar_container {
     height: 100vh;
@@ -28,7 +30,6 @@ const AppContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    color: #fff;
 
     .sidebar {
       display: flex;
@@ -69,6 +70,18 @@ const AppContainer = styled.div`
         display: flex;
         flex-direction: column;
         width: 100%;
+
+        .group {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          margin-bottom: 20px;
+
+          h3 {
+            font-size: 1rem;
+            margin: 10px 0;
+          }
+        }
       }
     }
   }
@@ -79,6 +92,8 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+
+  const [open, setOpen] = useState(true);
 
   const lineWhileHover = {
     scale: 1.2,
@@ -136,7 +151,9 @@ function App() {
     }
   };
 
-  const [open, setOpen] = useState(true);
+  const titleAnimation = {
+    opacity: open ? 1 : 0, height: open ? 'auto' : 0
+  };
 
   const handleToggle = useCallback(() => {
     setOpen(!open);
@@ -145,7 +162,7 @@ function App() {
   return (
     <AppContainer>
       <motion.div
-        data-Open={open}
+        data-open={open}
         variants={sideContainerVariants}
         initial={`${open}`}
         animate={`${open}`}
@@ -181,20 +198,20 @@ function App() {
           <div className="groups">
             {/* group 1 */}
             <div className="group">
-              <h3>ANALYTICS</h3>
+              <motion.h3 animate={titleAnimation}>ANALYTICS</motion.h3>
               <Item icon={<DashboardRounded />} name="Dashboard" />
               <Item icon={<BarChartOutlined />} name="Performance" />
             </div>
             {/* group 2 */}
             <div className="group">
-              <h3>Content</h3>
+              <motion.h3 animate={titleAnimation}>Content</motion.h3>
               <Item icon={<AttachMoneyRounded />} name="Sales" />
               <Item icon={<AssignmentTurnedInRounded />} name="Checklist" />{' '}
               <Item icon={<AccountCircleRounded />} name="Customers" />
             </div>
             {/* group 2 */}
             <div className="group">
-              <h3>CUSTOMIAZTION</h3>
+              <motion.h3 animate={titleAnimation}>CUSTOMIAZTION</motion.h3>
               <Item icon={<SettingsRemoteRounded />} name="Segments" />
               <Item icon={<ColorLensRounded />} name="Themems" />
             </div>
