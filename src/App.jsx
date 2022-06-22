@@ -34,7 +34,7 @@ const AppContainer = styled.div`
     .sidebar {
       display: flex;
       width: 14rem;
-      height: 90%;
+      height: 70%;
       justify-content: start;
       align-items: start;
       flex-direction: column;
@@ -133,6 +133,7 @@ function App() {
     true: {},
     false: {
       width: '3rem',
+      height: '60%',
       transition: {
         delay: 0.4
       }
@@ -142,7 +143,7 @@ function App() {
   const profileVariants = {
     true: {
       alignSelf: 'center',
-      width: '6rem',
+      width: '8rem',
     },
     false: {
       alignSelf: 'flex-start',
