@@ -80,13 +80,13 @@ const AppContainer = styled.div`
 
 function App() {
 
-  const whileHover = {
+  const lineWhileHover = {
     scale: 1.2,
     rotate: 180,
-    backgroundColor: 'rgba(255, 255, 255, .3)',
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
     backdropFilter: 'blur(3.5px)',
     WebkitBackdropFilter: 'blur(3.5px)',
-    border: '1px solid rgba(255, 255, 255, .18)',
+    // border: '1px solid rgba(255, 255, 255, 0.18)',
     cursor: 'pointer',
     transition: {
       delay: 0.1,
@@ -94,28 +94,88 @@ function App() {
     },
   };
 
-  const [ open, setOpen ] = useState(true);
+  const profileWhileHover = {
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    backdropFilter: 'blur(3.5px)',
+    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+    WebkitBackdropFilter: 'blur(3.5px)',
+    // border: '1px solid rgba(255, 255, 255, 0.18)',
+    cursor: 'pointer',
+  };
+
+  const sideContainerVariants = {
+    true: {
+      width: '15rem',
+    },
+    false: {
+      transition: {
+        delay: 0.6,
+      },
+    },
+  };
+
+  const sidebarVariants = {
+    true: {},
+    false: {
+      width: '3rem',
+      transition: {
+        delay: 0.4
+      }
+    }
+  };
+
+  const profileVariants = {
+    true: {
+      alignSelf: 'center',
+      width: '6rem',
+    },
+    false: {
+      alignSelf: 'flex-start',
+      marginTop: '2rem',
+      width: '3rem',
+    }
+  };
+
+  const [open, setOpen] = useState(true);
 
   const handleToggle = useCallback(() => {
-
-  }, []);
+    setOpen(!open);
+  }, [open]);
 
   return (
     <AppContainer>
-      <div className="sidebar_container">
-        <div className="sidebar">
+      <motion.div
+        data-Open={open}
+        variants={sideContainerVariants}
+        initial={`${open}`}
+        animate={`${open}`}
+        className="sidebar_container"
+      >
+        {/* sidebar */}
+        <motion.div className="sidebar" 
+          initial={`${open}`}
+          animate={`${open}`}
+          variants={sidebarVariants}
+        >
           {/* lines_icon */}
-          <motion.div className="lines_icon" whileHover={whileHover} onClick={handleToggle}>
+          <motion.div className="lines_icon" whileHover={lineWhileHover} onClick={handleToggle}>
             <TocRounded />
           </motion.div>
 
           {/* profile */}
-          <div className="profile">
+          <motion.div className="profile"
+            layout
+            initial={`${open}`}
+            animate={`${open}`}
+            variants={profileVariants}
+            transition={{duration: 0.4}}
+            whileHover={profileWhileHover}
+          >
             <img
               src="https://ae01.alicdn.com/kf/H5be6a0fa5f584a8a8420da2a7d4bc809r/RBRARE-Polaroid-Men-s-Goggle-Driving-Sunglasses-Men-Classic-Low-Profile-Sun-Glasses-For-Men-High.jpg"
               alt="profile-img"
             />
-          </div>
+          </motion.div>
 
           {/* groups */}
           <div className="groups">
@@ -139,8 +199,8 @@ function App() {
               <Item icon={<ColorLensRounded />} name="Themems" />
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       <div className="body_container"></div>
     </AppContainer>
   );
